@@ -1,0 +1,35 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+import numpy as np
+
+# The Random Way Point model
+RWP = nx.DiGraph()
+
+# The simulation area covers a square 1 km * 1 km.
+# Distance in meters
+x_min, x_max = 0, 1000
+y_min, y_max = 0, 1000
+
+# The mobile agent moves with speed in [2 km/h, 4 km/h]
+# Velocity in meters/seconds
+v_min = 2*1000/(60 * 60)
+v_max = 4*1000/(60 * 60)
+
+# The pause time [10 seconds, 1 minute]
+# Time in seconds
+pause_min = 10
+pause_max = 60
+
+# This mobile agent is observed during three hours
+stop_time = 3*60*60
+
+# The initial position (x,y) is chosen uniformly in both the axes
+x_src = np.random.uniform(x_min, x_max)
+y_src = np.random.uniform(y_min, y_max)
+
+# The destination of the agent chosen uniformly in both the axes
+x_dst = np.random.uniform(x_min, x_max)
+y_dst = np.random.uniform(y_min, y_max)
+
+# The velocity of the agent chosen uniformly in between the limits
+v = np.random.uniform(v_min, v_max)
