@@ -64,4 +64,3 @@ while simulation_time < STOP_TIME:
     print "Current Time = %f" % (simulation_time/(60*60))
 
 
-
