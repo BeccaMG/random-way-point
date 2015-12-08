@@ -1,8 +1,9 @@
 from Globals import *
-import matplotlib.pyplot as plt
 import numpy as np
 import math
 
+# Open the output file
+fo = open("mean_speeds.txt", "a")
 # The current time of simulation
 simulation_time = 0
 # Vector containing mean speeds for each minute of the simulation
@@ -34,12 +35,12 @@ def mean_speed_calculator(action_time, speed, split_minute):
             mean_speed.append(speed)
 
         if simulation_time >= STOP_TIME:
-            return split_minute
+            break
     return split_minute
 
 
 def main():
-    global simulation_time, mean_speed
+    global simulation_time, mean_speed, fo
     # The spent time of a minute while calculating the mean speed
     split_minute = 0.0
 
@@ -59,28 +60,21 @@ def main():
     # The initial position (x,y) is chosen uniformly in both the axes
     x_src = np.random.uniform(X_MIN, X_MAX)
     y_src = np.random.uniform(Y_MIN, Y_MAX)
-    print "Initial position =(%f,%f)" % (x_src, y_src)
 
     while simulation_time < STOP_TIME:
         # The destination of the agent chosen uniformly in both the axes
         x_dst = np.random.uniform(X_MIN, X_MAX)
         y_dst = np.random.uniform(Y_MIN, Y_MAX)
-        print "Destination =(%f,%f)" % (x_dst, y_dst)
 
         # The velocity of the agent chosen uniformly in between the limits
         speed = np.random.uniform(V_MIN, V_MAX)
-        print "Speed = %f" % speed
 
         # Move mobile
         # Distance between src and dst
         distance = math.sqrt((x_src - x_dst)**2 + (y_src - y_dst)**2)
-        print "Distance between src and dst = %f" % distance
 
         # Compute time taken to go from src to dst
         current_way_time = distance/speed
-        print "Time elapsed traveling the distance = %f" % current_way_time
-        # simulation_time += current_way_time
-        print "Current Time = %f" % (simulation_time/60)
 
         x_src, y_src = x_dst, y_dst
 
@@ -91,12 +85,16 @@ def main():
 
         # The pause time of the agent chosen uniformly in between the limits
         p = np.random.uniform(PAUSE_MIN, PAUSE_MAX)
-        print "pause time = %f" % p
 
         split_minute = mean_speed_calculator(p, 0, split_minute)
 
     print "Current Time = %f" % (simulation_time/60)
 
+    np.savetxt(fo, mean_speed, fmt='%f', newline=' ')
+    fo.write("\n")
+
 
 if __name__ == '__main__':
     main()
+    fo.close()
+
