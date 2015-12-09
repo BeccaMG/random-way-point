@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from Globals import *
 import RandomWayPoint
 import numpy as np
@@ -47,6 +48,8 @@ def simulate(n, p, filename):
         fo.write("\n========================\n")
         fo.write("The Largest N value : %d\n" % largest_n)
         fo.write("========================\n")
+    else:
+        ret = total_mean_speed
 
     # Closes the output file
     fo.close()
@@ -54,5 +57,16 @@ def simulate(n, p, filename):
 
 if __name__ == '__main__':
     l = simulate(30, True, "preliminary.txt")
-    simulate(int(l), False, "Simulation.txt")
     e = Z * STD_DEV / math.sqrt(l)
+
+    y = simulate(int(l), False, "Simulation.txt")
+    x = np.arange(1, 181, 1)
+
+    fig = plt.figure("mean speed vs. time")
+    fig.text(0.70, 0.01, 'Half width = %.4f m/min' % e, style='italic', fontsize=14)
+    fig.text(0.2, 0.01, 'Standard deviation = %.4f' % STD_DEV, style='italic', fontsize=14)
+    plt.grid()
+    plt.errorbar(x, y, yerr=e, fmt='.')
+    plt.title("mean speed vs. time")
+
+    plt.show()
