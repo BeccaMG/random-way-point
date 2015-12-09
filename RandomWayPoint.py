@@ -1,9 +1,12 @@
+# FILE: RandomWayPoint.py
+# The algorithm of Random Way Point returns a vector of the speed per minute.
+
 import matplotlib.pyplot as plt
 import networkx as nx
 from Globals import *
 import numpy as np
 
-
+# Computes the average speed of the mobile agent during a minute
 def calculate_mean_speed(action_time, speed, split_minute):
     global simulation_time, mean_speed
     while action_time > 0:
@@ -42,7 +45,7 @@ def calculate_mean_speed(action_time, speed, split_minute):
             break
     return split_minute
 
-
+# Simulates the random way point for three hours
 def simulate_random_way_point():
     global simulation_time, mean_speed, rwp, node_pos
 
@@ -100,53 +103,4 @@ def simulate_random_way_point():
         # Calls mean_speed_calculator
         split_minute = calculate_mean_speed(p, 0, split_minute)
 
-    return mean_speed
-
-
-if __name__ == '__main__':
-    global rwp, node_pos
-
-    # ------------
-    # Run the file
-    # ------------
-
-    simulate_random_way_point()
-
-    # ----------------
-    # Shows the graph
-    # ----------------
-
-    plt.figure('Random Way Point')
-    nx.draw_networkx(rwp, node_pos, node_size=100, node_label=False)
-    # Show axis of the graph
-    plt.axis('on')
-    # Shows the graph in (Random Way Point) window
-    plt.show()
-
-    # TODO check usefulness
-    # Outputs graph to RandomWayPoint.gexf
-    nx.write_gexf(rwp, "RandomWayPoint.gexf")
-
-    # -----------------------
-    # Write in an output file
-    # -----------------------
-
-    # Opens the output file
-    fo = open("mean_speeds.txt", "a")
-    # Appends mean speeds of each minute to mean_speeds.txt
-    np.savetxt(fo, mean_speed, fmt='%f', newline=' ')
-    fo.write("\n")
-    # Closes the output file
-    fo.close()
-
-    y = mean_speed
-    x = np.arange(1, 181, 1)
-
-    fig = plt.figure("Avg vs time one sim")
-    plt.grid()
-    plt.errorbar(x, y, yerr=0, fmt='.')
-    plt.title("Average speed vs. time for one simulation")
-
-    plt.show()
-
-
+    return mean_speed[:180]

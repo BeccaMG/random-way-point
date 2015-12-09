@@ -1,3 +1,7 @@
+# FILE: Globals.py
+# Specifies all the parameters given in the formulation of the project as
+# global constans.
+
 import math
 # The simulation area covers a square 1 km * 1 km.
 # Distance in meters
