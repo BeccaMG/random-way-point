@@ -139,4 +139,14 @@ if __name__ == '__main__':
     # Closes the output file
     fo.close()
 
+    y = mean_speed
+    x = np.arange(1, 181, 1)
+
+    fig = plt.figure("Avg vs time one sim")
+    plt.grid()
+    plt.errorbar(x, y, yerr=0, fmt='.')
+    plt.title("Average speed vs. time for one simulation")
+
+    plt.show()
+
 
