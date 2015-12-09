@@ -1,8 +1,3 @@
-import networkx as nx
-
-# The Random Way Point model
-RWP = nx.DiGraph()
-
 # The simulation area covers a square 1 km * 1 km.
 # Distance in meters
 X_MIN, X_MAX = 0, 1000
