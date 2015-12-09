@@ -2,10 +2,9 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from Globals import *
 import numpy as np
-import math
 
 
-def mean_speed_calculator(action_time, speed, split_minute):
+def calculate_mean_speed(action_time, speed, split_minute):
     global simulation_time, mean_speed
     while action_time > 0:
         # Checks if last input in the array is the mean of a complete minute or not
@@ -44,7 +43,7 @@ def mean_speed_calculator(action_time, speed, split_minute):
     return split_minute
 
 
-def random_way_point():
+def simulate_random_way_point():
     global simulation_time, mean_speed, rwp, node_pos
 
     # The current time of simulation
@@ -52,7 +51,7 @@ def random_way_point():
     # Vector containing mean speeds for each minute of the simulation
     mean_speed = []
     # The Random Way Point graph
-    rwp = nx.DiGraph()
+    rwp = nx.Graph()
     # The spent time of a minute while calculating the mean speed
     split_minute = 0.0
 
@@ -89,7 +88,7 @@ def random_way_point():
 
         x_src, y_src = x_dst, y_dst
 
-        split_minute = mean_speed_calculator(current_way_time, speed, split_minute)
+        split_minute = calculate_mean_speed(current_way_time, speed, split_minute)
 
         # If at any time the simulation_time reached the STOP_TIME stop the simulation
         if simulation_time >= STOP_TIME:
@@ -99,7 +98,7 @@ def random_way_point():
         p = np.random.uniform(PAUSE_MIN, PAUSE_MAX)
 
         # Calls mean_speed_calculator
-        split_minute = mean_speed_calculator(p, 0, split_minute)
+        split_minute = calculate_mean_speed(p, 0, split_minute)
 
     return mean_speed
 
@@ -111,14 +110,14 @@ if __name__ == '__main__':
     # Run the file
     # ------------
 
-    random_way_point()
+    simulate_random_way_point()
 
     # ----------------
     # Shows the graph
     # ----------------
 
     plt.figure('Random Way Point')
-    nx.draw_networkx(rwp, node_pos)
+    nx.draw_networkx(rwp, node_pos, node_size=100, node_label=False)
     # Show axis of the graph
     plt.axis('on')
     # Shows the graph in (Random Way Point) window
