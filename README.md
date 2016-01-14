@@ -11,6 +11,6 @@ The simulation area covers a square 1km x 1km. A mobile agent moves in this area
 
 
 ######Activities
-- [ ] Code the Random Way Point algorithm
-- [ ] Compute the mean speed of the agent in time with the granularity of one minute with precision 5% on confidence level 0.05. 
-- [ ] Draw a diagram of the mean speed of this agent in function of time.
+- [x] Code the Random Way Point algorithm
+- [x] Compute the mean speed of the agent in time with the granularity of one minute with precision 5% on confidence level 0.05. 
+- [x] Draw a diagram of the mean speed of this agent in function of time.
